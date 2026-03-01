@@ -1,0 +1,19 @@
+{
+  "name": "@autotaxflow/worker",
+  "version": "1.0.0",
+  "private": true,
+  "main": "worker.ts",
+  "dependencies": {
+    "@autotaxflow/db": "*",
+    "@autotaxflow/shared": "*",
+    "bullmq": "latest",
+    "ioredis": "latest",
+    "stripe": "latest",
+    "@intuit/quickbooks": "latest",
+    "pdfkit": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "ts-node-dev": "latest"
+  }
+}

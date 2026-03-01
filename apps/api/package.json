@@ -1,0 +1,19 @@
+{
+  "name": "@autotaxflow/api",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.ts",
+  "dependencies": {
+    "@autotaxflow/db": "*",
+    "@autotaxflow/shared": "*",
+    "fastify": "latest",
+    "fastify-zod": "latest",
+    "stripe": "latest",
+    "bullmq": "latest",
+    "ioredis": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "ts-node-dev": "latest"
+  }
+}
