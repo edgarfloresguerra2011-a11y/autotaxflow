@@ -1,6 +1,7 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import "dotenv/config";
+import { stripeWebhookRoutes } from "./routes/webhooks/stripe";
 
 const fastify = Fastify({
     logger: {
@@ -30,8 +31,7 @@ async function bootstrap() {
         // -------------------------------------------------------------------------
         // REGISTRO DE RUTAS DINÁMICAS
         // -------------------------------------------------------------------------
-        // Aquí registraremos los módulos: webhooks, orgs, nexus, etc.
-        // await fastify.register(stripeWebhookRoutes, { prefix: "/api/webhooks/stripe" });
+        await fastify.register(stripeWebhookRoutes, { prefix: "/api/webhooks/stripe" });
 
         const PORT = Number(process.env.PORT) || 3001;
         await fastify.listen({ port: PORT, host: "0.0.0.0" });
