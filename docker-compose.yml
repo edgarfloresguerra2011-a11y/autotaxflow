@@ -1,0 +1,54 @@
+# AutoTaxFlow - Entorno Local de Desarrollo (Docker)
+
+version: '3.8'
+
+services:
+  # ---------------------------------------------
+  # Base de Datos Relacional Principal
+  # ---------------------------------------------
+  postgres:
+    image: postgres:15-alpine
+    container_name: autotaxflow_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: autotaxflow_user
+      POSTGRES_PASSWORD: autotaxflow_password
+      POSTGRES_DB: autotaxflow_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U autotaxflow_user -d autotaxflow_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------
+  # Cache y Colas de Tareas (BullMQ)
+  # ---------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: autotaxflow_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+  # ---------------------------------------------
+  # Herramienta de Administración de BD (Opcional - UI)
+  # ---------------------------------------------
+  adminer:
+    image: adminer
+    container_name: autotaxflow_adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  redis_data:
